@@ -73,12 +73,8 @@ var drawBody= function(bodyX,bodyY)
 
 };
 
-var drawHead= function(randomNum1,randomNum2) 
+var drawHead= function(bodyX,bodyY) 
 {
-    //var bodyX = random(randomNum1,randomNum2);
-    //var bodyY = random(randomNum1,randomNum2);
-    var bodyX = randomNum1;
-    var bodyY = randomNum2;
     stroke(0,0,0);
     fill(240, 226, 182);
     arc(bodyX+200,bodyY+100,72,131,37,145); //hair ponytail
@@ -117,7 +113,6 @@ var drawHead= function(randomNum1,randomNum2)
     noStroke();
     fill(0, 0, 0);
     arc(bodyX+199,bodyY+124,30,13,0,361);
-
 
     drawBody(bodyX,bodyY); //function call within a function
 };
@@ -170,23 +165,6 @@ var btn1 = new Button(
     }
 );
 
-var scene1 = function()
-{
-    background(219, 204, 255);
-    drewHead(125,160,151);
-    drawHead(70,40);
-    btn1.draw();
-    fill(0, 41, 153);
-    textSize(30);
-    text("T&S Connect Four!!",80,30,400,400);
-    textSize(18);
-    text("Tanya Li", 90,70,400,400);
-    text("Sean Phelan", 220,70,400,400);
-    textSize(13);
-    text("Try to build a row of four checkers while keeping your opponent from doing the same. Sounds easy, but it's not! 
-    The vertical strategy creates a unique challenge: you must think in a whole new way to block your opponent's moves!",35,323,350,400);
-};
-
 var DrawEllipse = function(x,y) 
 {
     ellipse(50+(50*x),105+(50*y),50,50);   
@@ -222,6 +200,40 @@ var ArrayDeclaration = function()
             // 3 will be Blue Slot
             // 4 will be last slot
         }
+    }
+};
+
+var scene1 = function()
+{
+    background(219, 204, 255);
+    drewHead(125,160,151);
+    drawHead(70,40);
+    btn1.draw();
+    fill(0, 41, 153);
+    textSize(30);
+    text("T&S Connect Four!!",80,30,400,400);
+    textSize(18);
+    text("Tanya Li", 90,70,400,400);
+    text("Sean Phelan", 220,70,400,400);
+    textSize(13);
+    text("Try to build a row of four checkers while keeping your opponent from doing the same. Sounds easy, but it's not! The vertical strategy creates a unique challenge: you must think in a whole new way to block your opponent's moves!",35,323,350,400);
+};
+
+var scene2 = function()
+{
+    background(255, 255, 255);
+    ArrayDeclaration();
+};
+
+draw = function() 
+{
+    if(currentScene === 1)
+    {
+        scene1();
+    }
+    else if(currentScene === 2)
+    {
+        scene2();
     }
 };
 
@@ -278,24 +290,6 @@ var checkWin = function (Array, x, y, colour)
     else 
     {
         return;
-    }
-};
-
-var scene2 = function()
-{
-    background(255, 255, 255);
-    ArrayDeclaration();
-};
-
-draw = function() 
-{
-    if(currentScene === 1)
-    {
-        scene1();
-    }
-    else if(currentScene === 2)
-    {
-        scene2();
     }
 };
 

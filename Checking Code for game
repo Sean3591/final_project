@@ -182,8 +182,9 @@ var scene1 = function()
     textSize(18);
     text("Tanya Li", 90,70,400,400);
     text("Sean Phelan", 220,70,400,400);
-    textSize(14);
-    text("Connect four is...",35,323,400,400);
+    textSize(13);
+    text("Try to build a row of four checkers while keeping your opponent from doing the same. Sounds easy, but it's not! 
+    The vertical strategy creates a unique challenge: you must think in a whole new way to block your opponent's moves!",35,323,350,400);
 };
 
 var DrawEllipse = function(x,y) 

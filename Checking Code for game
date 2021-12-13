@@ -153,18 +153,6 @@ Button.prototype.handleMouseClick = function()
     }
 };
 
-var btn1 = new Button(
-    {
-        x: 50,
-        y: 260,
-        label: "Start the Game!",
-        onClick: function() 
-        {
-            currentScene = 2;
-        }
-    }
-);
-
 var DrawEllipse = function(x,y) 
 {
     ellipse(50+(50*x),105+(50*y),50,50);   
@@ -205,6 +193,100 @@ var ArrayDeclaration = function()
     }
 };
 
+var btn1 = new Button(
+    {
+        x: 50,
+        y: 260,
+        label: "Start the Game!",
+        onClick: function() 
+        {
+            currentScene = 2;
+            background(205, 182, 250);
+            ArrayDeclaration();
+        }
+        
+    }
+);
+
+var checkArray = function() 
+{
+    for (var x = 0; x < 7; x++) 
+    {
+        for (var y = 0; y < 6; y++) 
+        {
+            fill(0, 0, 0);
+            text(ArrayEllipse[x][y], 65+(50*x),105+(50*y));
+            text(x, 30+(50*x),105+(50*y));
+            text(y, 40+(50*x),105+(50*y));
+        }
+    }
+};
+
+var checkWin = function (Array, x, y, colour) 
+{
+    var team;
+    if(colour === 2)
+    {
+        team = "Red";
+    }
+
+    if(colour === 3)
+    {
+        team = "Blue";
+    }
+ 
+    //Rows (DONE, CAN MOST LIKELY BE OMPTOMIZED)
+    for(var i = 0; i < 4; i++)
+    {
+        if(Array[3][y] === colour && Array[2][y] === colour && Array[1][y] === colour && Array[0][y] === colour)
+        {
+            println(team + " " + "Wins!");
+        }
+        if(Array[3][y] === colour && Array[4][y] === colour && Array[5][y] === colour && Array[6][y] === colour)
+        {
+            println(team + " " + "Wins!");
+        }
+        if(Array[2][y] === colour && Array[3][y] === colour && Array[4][y] === colour && Array[5][y] === colour)
+        {
+            println(team + " " + "Wins!");
+        }
+        if(Array[4][y] === colour && Array[3][y] === colour && Array[2][y] === colour && Array[1][y] === colour)
+        {
+            println(team + " " + "Wins!");
+        }
+        if(Array[1][y] === colour && Array[2][y] === colour && Array[3][y] === colour && Array[4][y] === colour)
+        {
+            println(team + " " + "Wins!");
+        }
+        if(Array[5][y] === colour && Array[4][y] === colour && Array[3][y] === colour && Array[2][y] === colour)
+        {
+            println(team + " " + "Wins!");
+        }
+
+        //Columns (DONE)
+        if(Array[x][y] === colour && Array[x][y+1] === colour && Array[x][y+2] === colour && Array[x][y+3] === colour) 
+        {
+            println(team + " " + "Wins!");
+        }
+
+        //Zig-Zag
+        for(var e = 0; e <= 2; e++) 
+        {
+            for(var u = 0; u <= 3; u++)
+            {
+                if(Array[0+u][5+e] === colour && Array[1+u][4+e] === colour && Array[2+u][3+e] === colour && Array[3+u][2+e] === colour)
+                {
+                    println(team + " " + "Wins!");
+                }
+                if(Array[6-u][5+e] === colour && Array[5-u][4+e] === colour && Array[4-u][3+e] === colour && Array[3-u][2+e] === colour)
+                {
+                    println(team + " " + "Wins!");
+                }
+            }
+        }
+    }
+};
+
 var scene1 = function()
 {
     background(219, 204, 255);
@@ -221,109 +303,45 @@ var scene1 = function()
     text("Try to build a row of four checkers while keeping your opponent from doing the same. Sounds easy, but it's not! The vertical strategy creates a unique challenge: you must think in a whole new way to block your opponent's moves!",35,323,350,400);
 };
 
-var scene2 = function()
-{
-    background(255, 255, 255);
-    ArrayDeclaration();
-};
-
-var checkWin = function (Array, x, y, colour) 
-{
-    var q = x;
-    var w = y;
-    var team;
-    
-    if(colour === 2)
-    {
-        team = "Red";
-    }
-    if(colour === 3)
-    {
-        team = "Blue";
-    }
-    //Rows
- 
-    var a = x + 1;
-    var b = x + 2;
-    var c = x + 3;
- 
-    var e = y + 1;
-    var f = y + 2;
-    var g = y + 3;
- 
-    //println(Array[x][y]);
-    
-    if(Array[x][y] === colour && Array[a][y] === colour && Array[b][y] === colour && Array[c][y] === colour)
-    {
-        println(team + " " + "Wins!");
-    }
-    if(Array[x-1][y] === colour && Array[a-1][y] === colour && Array[b-1][y] === colour && Array[b-3][y] === colour)
-    {
-        println(team + " " + "Wins!");
-    }
-    if(Array[x-2][y] === colour && Array[a-2][y] === colour && Array[b-2][y] === colour && Array[c-2][y] === 2)
-    {
-        println(team + " " + "Wins!");
-    }
-    if(Array[x-3][y] === colour && Array[a-3][y] === colour && Array[b-3][y] === colour && Array[c-3][y] === colour) 
-    {
-        println(team + " " + "Wins!");
-    }
-    
-    //Columns
-    if(Array[x][y-3] === colour && Array[x][e-3] === colour && Array[x][f-3] === colour && Array[c][g-3] === colour) 
-    {
-        println(team + " " + "Wins!");
-    }
-
-    //Zig-Zag
-    else 
-    {
-        return;
-    }
-};
-
 draw = function() 
 {
     if(currentScene === 1)
     {
         scene1();
     }
-    else if(currentScene === 2)
-    {
-        scene2();
-    }
 };
 
 mouseClicked = function()
 {
-    btn1.handleMouseClick();
+    if(currentScene === 1)
+    {
+        btn1.handleMouseClick();
+    }
     for (var x = 0; x < 7; x++) 
     {
         for (var y = 0; y < 6; y++) 
         {
             if(mouseX > 25+(50*x) && mouseX < 25 + (50*x) + 50 && mouseY > 80 + (50*y) && mouseY < 80 + (50*y) + 50) 
             {
-                if(ArrayEllipse[x][y+1] !== 1)
+                if(ArrayEllipse[x][y+1] !== 1 && ArrayEllipse[x][y] !== 2 && ArrayEllipse[x][y] !== 3)
                 {
                     if (PlayerTurn === 2 && ArrayEllipse[x][y] !== 2 && ArrayEllipse[x][y] !== 3)
                     {
                         fill(255, 0, 0);
                         DrawEllipse(x,y);
                         ArrayEllipse[x][y] = 2;
-                        PlayerTurn = 3;
                         checkWin(ArrayEllipse,x,y,2);
+                        checkArray();
+                        PlayerTurn = 3;
                     }
-                    else 
+                    if (PlayerTurn === 3 && ArrayEllipse[x][y] !== 2 && ArrayEllipse[x][y] !== 3)
                     {
-                        if (PlayerTurn === 3 && ArrayEllipse[x][y] !== 2 && ArrayEllipse[x][y] !== 3 && ArrayEllipse[x][y] !== 0)
-                        {
-                            fill(26, 0, 255);
-                            DrawEllipse(x,y);
-                            ArrayEllipse[x][y] = 3;
-                            PlayerTurn = 2;
-                            checkWin(ArrayEllipse,x,y,3);
-                        }
+                        fill(26, 0, 255);
+                        DrawEllipse(x,y);
+                        ArrayEllipse[x][y] = 3;
+                        checkWin(ArrayEllipse,x,y,3);
+                        checkArray();
+                        PlayerTurn = 2;
                     }
                 }
             }
